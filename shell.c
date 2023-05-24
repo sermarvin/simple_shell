@@ -5,6 +5,28 @@
  *
  * Return: Nothing (0)
  */
+
+char **split_tokens(char *str) {
+	char **arguments = malloc(sizeof(char *) * (MAX_ARGS + 1));
+	if (!arguments) {
+		perror("malloc error");
+		exit(EXIT_FAILURE);
+	}
+
+	char *token;
+	int counter = 0;
+	const char *delimiter = " \t\n";
+
+	token = strtok(str, delimiter);
+	while (token != NULL && counter < MAX_ARGS) {
+		arguments[counter++] = strdup(token);
+		token = strtok(NULL, delimiter);
+	}
+	arguments[counter] = NULL;
+
+	return arguments;
+}
+
 int main(void)
 {
 	char *prompt = "#myShell$ ", *buffer = NULL, **args, *path;
