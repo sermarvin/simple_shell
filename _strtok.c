@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * split_tokens - splits the string into null terminated strings
+ * @str: string to be split
+ * 
+ * Return: pointer to the NULL terminated array
+*/
+
 char **split_tokens(char *str)
 {
 	char *token;
