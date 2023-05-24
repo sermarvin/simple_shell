@@ -62,10 +62,11 @@ int main(void)
 	size_t size = BUFF_SIZE;
 	ssize_t str_read;
 	bool pipe_input = false;
-	pid_t pid;
 
 	signal(SIGINT, sig_handler);
 	_isatty();
+
+	pid_t pid;
 
 	while (1 && !pipe_input)
 	{
@@ -85,6 +86,13 @@ int main(void)
 
 		args = split_tokens(buffer);
 		path = args[0];
+		
+		if (strcmp(path, "exit") == 0)
+        	{
+            		free(buffer);
+            		exit(0);
+        	}		
+
 		pid = fork();
 		if (pid == -1)
 		{
@@ -93,9 +101,10 @@ int main(void)
 		}
 		if (pid == 0)
 		{
-			if ((execve(path, args, NULL)) == -1)
+			if (execve(path, args, NULL) == -1)
 			{
 				perror("./shell");
+				free(buffer);
 				exit(1);
 			}
 		}
