@@ -1,5 +1,5 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+#ifndef SHELL_H
+#define SHELL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,4 +68,4 @@ void free_list(list_path *head);
 #define BUFF_SIZE 1024
 #define MAX_ARGS 10
 
-#endif
+#endif /* SHELL_H */

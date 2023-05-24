@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/**
+ /**
  * sig_handler - checks if Ctrl C is pressed
  * @sig_num: int
  */
@@ -13,11 +13,12 @@ void sig_handler(int sig_num)
 	}
 }
 
-/**
-* _EOF - handles the End of File
-* @len: return value of getline function
-* @buff: buffer
+ /**
+ * _EOF - handles the End of File
+ * @len: return value of getline function
+ * @buff: buffer
  */
+
 void _EOF(int len, char *buff)
 {
 	(void)buff;
@@ -35,8 +36,8 @@ void _EOF(int len, char *buff)
 
 
 
-/**
-  * _isatty - verif if terminal
+ /**
+  * _isatty - checks if terminal
   */
 
 void _isatty(void)
@@ -54,11 +55,17 @@ void _isatty(void)
 
 int main(void)
 {
-	char *prompt = "#myShell$ ", *buffer = NULL, **args, *path;
+	char *prompt = "#myShell$ ";
+	char *buffer = NULL;
+	char **args;
+	char *path;
 	size_t size = BUFF_SIZE;
 	ssize_t str_read;
 	bool pipe_input = false;
 	pid_t pid;
+
+	signal(SIGINT, sig_handler);
+	_isatty();
 
 	while (1 && !pipe_input)
 	{
@@ -79,12 +86,17 @@ int main(void)
 		args = split_tokens(buffer);
 		path = args[0];
 		pid = fork();
+		if (pid == -1)
+		{
+			perror("Error");
+			exit(1);
+		}
 		if (pid == 0)
 		{
 			if ((execve(path, args, NULL)) == -1)
 			{
 				perror("./shell");
-				_exit(1);
+				exit(1);
 			}
 		}
 		if (pid > 0)
@@ -94,6 +106,4 @@ int main(void)
 	}
 	free(buffer);
 	return (0);
-
-
 }
