@@ -20,7 +20,8 @@ void sig_handler(int sig_num)
 int main(int argc, char **argv, char **env)
 {
 	char *line;
-	char **dir, **cmd;
+	char **dir; 
+	char  **cmd;
 	char *combine;
 
 	if (argc == 1 || argv[1] == NULL)
@@ -30,6 +31,7 @@ int main(int argc, char **argv, char **env)
 			signal(SIGINT, sig_handler);
 			if (isatty(STDIN_FILENO))
 			write(1, "$ ", 2);
+		
 			line = get_line();
 			if (line[0] == '\n')
 			{
@@ -40,12 +42,14 @@ int main(int argc, char **argv, char **env)
 			dir = dirTok(env);
 			combine = checkPath(dir, cmd[0]);
 			checkBuiltins(combine, cmd);
-			if (!combine)
+		
+			if (combine == NULL)
 				perror(combine);
-		}
+		
 		free(line);
 		free(cmd);
 		free(dir);
+		}
 	}
 
 	return (0);
