@@ -3,6 +3,7 @@
 int _strspn(char *s, char *accept);
 int _strncmp(const char *s1, const char *s2, size_t n);
 int _strcmp(char *s1, char *s2);
+char *_strchr(char *s, char c);
 
 /**
  * _strspn - gets the length of a prefix substring
@@ -76,4 +77,23 @@ int _strcmp(char *s1, char *s2)
 		return (*s1 - *s2);
 
 	return (0);
+}
+
+/**
+ * _strchr - locates a character in a string
+ * @s: The string to be searched
+ * @c: The character to be located
+ * Return: If c is found - a pointer to the first
+ * ,if c is not found - NULL
+ */
+char *_strchr(char *s, char c)
+{
+	int index;
+
+	for (index = 0; s[index]; index++)
+	{
+		if (s[index] == c)
+			return (s + index);
+	}
+	return (NULL);
 }
