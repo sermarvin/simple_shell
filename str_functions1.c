@@ -3,6 +3,7 @@
 int _strlen(const char *s);
 int *_strcat(char *dest, const char *src);
 char *_strncat(char *dest, const char *src, size_t n);
+char *_strcpy(char *dest, const char *src);
 
 /**
  * _strlen - Returns length of a string
@@ -59,5 +60,21 @@ char *_strncat(char *dest, const char *src, size_t n)
 		dest[dest_len + i] = src[i];
 	dest[dest_len + i] = '\0';
 
+	return (dest);
+}
+
+/**
+ * _strcpy - cpies the string pointed to by src
+ * @dest: Pointer to the destination of copied string
+ * @src: Pointer to the src of the source string
+ * Return: Pointer to dest
+ */
+char *_strcpy(char *dest, const char *src)
+{
+	size_t i;
+
+	for (i = 0; src[i] != '\0'; i++)
+		dest[i] = src[i];
+	dest[i] = '\0';
 	return (dest);
 }
