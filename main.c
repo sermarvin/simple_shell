@@ -1,6 +1,8 @@
 #include "shell.h"
 
-
+char *name;
+int hist;
+alias_t *aliases;
 void sig_handler(int sig);
 int execute(char **args, char **front);
 
